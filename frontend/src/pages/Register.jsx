@@ -17,7 +17,6 @@ const Register = () => {
   // console.log("Username:", password);
 
   const handleRegister = async () => {
-    console.log("Register");
     try {
       const res = await axios.post(URL + "/api/auth/register",{username,email,password});
       console.log(res);
@@ -25,6 +24,7 @@ const Register = () => {
       setEmail(res.data.email);
       setPassword(res.data.password);
       setError(false);
+      console.log("Register success")
       navigate("/login")
 
     } catch (e) {
