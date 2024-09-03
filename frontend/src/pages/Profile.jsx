@@ -9,18 +9,19 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const Profile = () => {
   const id = useParams().id;
+  console.log("id",id)
+  const { user, setUser } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { user, setUser } = useContext(UserContext);
-  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [updated, setUpdated] = useState(false);
-  // console.log(user)
+
+  const navigate = useNavigate();
 
   const fetchProfile = async () => {
     try {
-      const res = await axios.get(URL + "/api/users/" + user._id);
+      const res = await axios.get(URL + "/api/users/" + id);
       setUsername(res.data.username);
       setEmail(res.data.email);
       setPassword(res.data.password);
@@ -33,7 +34,7 @@ const Profile = () => {
     setUpdated(false);
     try {
       const res = await axios.put(
-        URL + "/api/users/" + user._id,
+        URL + "/api/users/" + id,
         { username, email, password },
         { withCredentials: true }
       );
@@ -60,8 +61,8 @@ const Profile = () => {
   // console.log(user)
   const fetchUserPosts = async () => {
     try {
-      const res = await axios.get(URL + "/api/posts/user/" + user._id);
-      // console.log(res.data)
+      const res = await axios.get(URL + "/api/posts/user/" + id);
+      console.log(res.data)
       setPosts(res.data);
     } catch (err) {
       console.log(err);

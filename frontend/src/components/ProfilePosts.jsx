@@ -1,13 +1,18 @@
 /* eslint-disable react/prop-types */
+import { useNavigate } from 'react-router-dom'
 import {IF} from '../url'
 
 const ProfilePosts = ({p}) => {
   // console.log(p)
+  const navigate=useNavigate();
+  const handlePostClick=()=>{
+    navigate(`/posts/post/${p._id}`);
+  }
   return (
-    <div className="w-full flex mt-8 space-x-4">
+    <div className="w-full flex mt-8 space-x-4 cursor-pointer hover:bg-gray-100 transition" onClick={handlePostClick}>
     {/* left */}
     <div className="w-[35%] h-[200px] flex justify-center items-center">
-    <img src={IF+p.photo} alt="" className="h-full w-full object-cover"/>
+    <img src={p.photo} alt="" className="h-full w-full object-cover"/>
     </div>
     {/* right */}
     <div className="flex flex-col w-[65%]">
