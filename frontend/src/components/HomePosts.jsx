@@ -1,5 +1,6 @@
 import {IF} from '../url'
 const HomePosts = ({ post }) => {
+  // const imageUrl = `${IF}${post.photo.replace(/^\//, '')}`;
   console.log(post)
 
   return (
@@ -23,7 +24,8 @@ const HomePosts = ({ post }) => {
             <p>{new Date(post.createdAt).toLocaleTimeString()}</p>
           </div>
         </div>
-        <p className="text-sm md:text-lg">{post.desc.slice(0,200)+" ...Read more"}</p>
+        {/* <p className="text-sm md:text-lg">{post.desc.slice(0,200)+" ... Read more"}</p> */}
+        <p className="text-sm md:text-lg">{post.desc.slice(0,200)}<span className="text-blue-500 hover:font-bold ml-1 cursor-pointer">... Read more</span></p>
       </div>
     </div>
   );
