@@ -1,14 +1,14 @@
-import React from "react";
-
+import {IF} from '../url'
 const HomePosts = ({ post }) => {
-  // console.log(post)
+  console.log(post)
+
   return (
     <div className="w-full flex mt-8 space-x-4">
       {/* Left */}
       <div className="w-[35%] h-[200px] flex justify-center items-center">
         <img
           src={post.photo}
-          alt="ai-image"
+          alt=""
           className="h-full w-full object-cover"
         />
       </div>
