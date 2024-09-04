@@ -10,9 +10,7 @@ import Loader from "../components/Loader";
 
 const Home = () => {
   const { user } = useContext(UserContext);
-  // const path=useLocation();
   const { search } = useLocation();
-  // console.log(search);
   const [posts, setPosts] = useState([]);
   const [noResults, setNoResults] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -21,7 +19,6 @@ const Home = () => {
     setLoader(true);
     try {
       const res = await axios.get(URL + "/api/posts/" + search);
-      // console.log(res.data);
       setPosts(res.data);
       if (res.data.length === 0) {
         setNoResults(true);

@@ -48,12 +48,12 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
     return res.status(400).json({ error: "No file uploaded" });
   }
 
-  // Check if there's an error during upload
+  // Checking if  error during upload
   if (req.fileValidationError) {
     return res.status(400).json({ error: req.fileValidationError });
   }
 
-  // If everything is fine, send a success response
+  //  send a success response if ok
   res.status(200).json({ message: "Image has been uploaded successfully!" });
 });
 app.listen(process.env.PORT, () => {
