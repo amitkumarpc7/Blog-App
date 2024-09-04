@@ -37,7 +37,6 @@ const storage = multer.diskStorage({
     fn(null, "images"); // Directory where files will be stored
   },
   filename: (req, file, fn) => {
-    // Generate a unique filename with extension
     fn(null, req.body.img);
   },
 });
