@@ -24,7 +24,7 @@ const connectDB = async () => {
 dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
-app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/images", express.static("images"));
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 // Routes
 app.use("/api/auth", authRoute);
@@ -38,9 +38,7 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, fn) => {
     // Generate a unique filename with extension
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1E9);
-    const fileExtension = path.extname(file.originalname);
-    fn(null, uniqueSuffix + fileExtension);
+    fn(null, req.body.img);
   },
 });
 

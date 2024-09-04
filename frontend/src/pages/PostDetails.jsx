@@ -4,7 +4,7 @@ import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { URL } from "../url";
+import { IF, URL } from "../url";
 import { UserContext } from "../context/UserContext";
 import Loader from "../components/Loader";
 import Comment from "../components/Comment";
@@ -67,6 +67,9 @@ const PostDetails = () => {
 
   const postComment = async (e) => {
     e.preventDefault();
+    if(!comment.trim()){
+      alert("comment should not be empty");
+    }
     try {
       const res = await axios.post(
         URL + "/api/comments/create",
@@ -115,11 +118,11 @@ const PostDetails = () => {
           <div className="flex items-center justify-between mt-2 md:mt-4">
             <p>@{post.username}</p>
             <div className="flex space-x-2">
-              <p>{new Date(post.createdAt).toLocaleDateString()}</p>
-              <p>{new Date(post.createdAt).toLocaleTimeString()}</p>
+              <p>{new Date(post.createdAt).toString().slice(0, 15)}</p>
+              <p>{new Date(post.createdAt).toString().slice(16, 24)}</p>
             </div>
           </div>
-          <img src={post.photo} alt="" className="w-full mx-auto mt-8"></img>
+          <img src={IF+post.photo} alt="" className="w-full mx-auto mt-8"></img>
           <p className="mx-auto mt-8">{post.desc}</p>
           {/* Categories div */}
           <div className="flex items-center mt-8 space-x-4 font-semibold">
