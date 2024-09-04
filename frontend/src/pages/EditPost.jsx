@@ -16,6 +16,7 @@ const EditPost = () => {
   const [file, setFile] = useState(null);
   const [cat, setCat] = useState("");
   const [cats, setCats] = useState([]);
+  const [oldImage,setOldImage]=useState("");
 
   const fetchPost = async () => {
     try {
@@ -24,6 +25,7 @@ const EditPost = () => {
       setDesc(res.data.desc);
       setFile(res.data.photo);
       setCats(res.data.categories);
+      setOldImage(res.data.photo);
     } catch (err) {
       console.log(err);
     }
@@ -47,10 +49,14 @@ const EditPost = () => {
       post.photo = filename;
       //img upload
       try {
-        const imgUpload = await axios.post(URL + "/api/upload", data);
+        // const imgUpload = await axios.post(URL + "/api/upload", data);
+        await axios.post(`${URL}/api/upload`, data);
       } catch (err) {
         console.log(err);
       }
+    }
+    else{
+      post.photo=oldImage;
     }
     //post upload
 
@@ -70,9 +76,10 @@ const EditPost = () => {
   }, [postId]);
 
   const deleteCategory = (i) => {
-    let updatedCats = [...cats];
-    updatedCats.splice(i);
-    setCats(updatedCats);
+    // let updatedCats = [...cats];
+    // updatedCats.splice(i);
+    // setCats(updatedCats);
+    setCats(cats.filter((category, index) => index !== i));
   };
 
   const addCategory = () => {
@@ -92,7 +99,7 @@ const EditPost = () => {
             value={title}
             type="text"
             placeholder="Enter post title"
-            className="px-4 py-2 outline-none"
+            className="px-4 py-2 outline-none border border-black rounded-sm"
           />
           <input
             onChange={(e) => setFile(e.target.files[0])}
@@ -100,11 +107,11 @@ const EditPost = () => {
             className="px-4"
           />
           <div className="flex flex-col">
-            <div className="flex items-center space-x-4 md:space-x-8">
+            <div className="flex items-center space-x-4 md:space-x-8 ">
               <input
                 value={cat}
                 onChange={(e) => setCat(e.target.value)}
-                className="px-4 py-2 outline-none"
+                className="px-4 py-2 outline-none border border-black rounded-sm"
                 placeholder="Enter post category"
                 type="text"
               />
@@ -139,7 +146,7 @@ const EditPost = () => {
             value={desc}
             rows={10}
             cols={20}
-            className="px-4 py-2 outline-none"
+            className="px-4 py-2 outline-dotted"
             placeholder="Enter post description"
           />
           <button

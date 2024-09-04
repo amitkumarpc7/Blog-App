@@ -4,7 +4,7 @@ const HomePosts = ({ post }) => {
   // console.log(post)
 
   return (
-    <div className="w-full flex mt-8 space-x-4">
+    <div className="w-full flex mt-8 space-x-4 hover:bg-gray-100 transition">
       {/* Left */}
       <div className="w-[35%] h-[200px] flex justify-center items-center">
         <img

@@ -26,18 +26,18 @@ const Navbar = () => {
   }
   const {user}=useContext(UserContext)
   return (
-    <div className="flex items-center justify-between px-6 md:px-[100px] py-4">
+    <div className="flex items-center justify-between px-6 md:px-[100px] py-4 shadow-md">
       <h1 className="text-lg md:text-xl font-extrabold">
         <Link to="/">The Bloggggg</Link>
       </h1>
-     {path==="/" && <div className="flex justify-center items-center space-x-0">
+     {path==="/" && <div className="flex justify-center items-center p-1 space-x-0 border border-gray-300 rounded">
         <p onClick={handleSearch} className="cursor-pointer">
           <BsSearch />
         </p>
         <input
           type="text"
           placeholder="Search a post"
-          className="outline-none px-3 py-1"
+          className="outline-none px-4 "
           onChange={(e)=>setPrompt(e.target.value)}
         ></input>
       </div>}
