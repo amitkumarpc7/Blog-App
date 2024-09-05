@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/images", express.static("images"));
 // app.use(cors({ origin: "http://localhost:5173", credentials: true }));
-app.use(cors({ origin: "https://blog-app-pncx.onrender.com", credentials: true }));
+app.use(cors({ origin: "https://blog-app-22b8.onrender.com", credentials: true }));
 // Routes
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
