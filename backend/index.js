@@ -25,7 +25,12 @@ dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
 app.use("/images", express.static("images"));
-app.use(cors({ origin: "https://blog-app-22b8.onrender.com", credentials: true }));
+const corsOptions = {
+  origin: ["https://blog-app-22b8.onrender.com", "http://localhost:5173"], // Add any other origins if needed
+  credentials: true,
+};
+app.use(cors(corsOptions));
+// app.use(cors({ origin: "https://blog-app-22b8.onrender.com", credentials: true }));
 // Routes
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
