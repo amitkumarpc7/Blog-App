@@ -5,6 +5,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const multer = require("multer");
 const path = require("path");
+// Routes middlewares
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
@@ -37,6 +38,7 @@ app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/comments", commentRoute);
 
+// for uploading photos
 const storage = multer.diskStorage({
   destination: (req, file, fn) => {
     fn(null, "images"); // Directory where files will be stored
@@ -47,6 +49,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
 app.post("/api/upload", upload.single("file"), (req, res) => {
   // console.log(req.body)
   if (!req.file) {
@@ -61,6 +64,8 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
   //  send a success response if ok
   res.status(200).json({ message: "Image has been uploaded successfully!" });
 });
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   connectDB();

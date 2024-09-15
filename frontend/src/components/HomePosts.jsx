@@ -21,7 +21,7 @@ const HomePosts = ({ post }) => {
           <p>@{post.username}</p>
           <div className="flex space-x-2">
             <p>{new Date(post.createdAt).toString().slice(0, 15)}</p>
-            <p>{new Date(post.createdAt).toString().slice(16, 24)}</p>
+            <p className='hidden md:flex'>{new Date(post.createdAt).toString().slice(16, 24)}</p>
           </div>
         </div>
         {/* <p className="text-sm md:text-lg">{post.desc.slice(0,200)+" ... Read more"}</p> */}
