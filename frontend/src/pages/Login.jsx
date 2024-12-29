@@ -8,11 +8,14 @@ import { UserContext } from "../context/UserContext";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    setLoading(true);
+    setError(null);
     try {
       const res = await axios.post(
         URL + "/api/auth/login",
@@ -21,6 +24,7 @@ const Login = () => {
       );
       // console.log(res.data)
       setUser(res.data);
+      setLoading(false);
       navigate("/");
     } catch (e) {
       setError(true);
@@ -32,6 +36,7 @@ const Login = () => {
       } else {
         setError("Something went wrong");
       }
+      setLoading(false);
     }
   };
   return (
@@ -63,9 +68,10 @@ const Login = () => {
           />
           <button
             onClick={handleLogin}
+            disabled={loading}
             className="w-full px-4 py-4 text-lg font-bold text-white bg-black rounded-lg hover:bg-gray-500 hover:text-black "
           >
-            Log in
+            {loading ? "Logging in..." : "Login"}
           </button>
           {error && <h3 className="text-red-500 text-sm ">{error}</h3>}
           <div className="flex justify-center items-center space-x-3">

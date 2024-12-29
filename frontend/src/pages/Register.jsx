@@ -2,38 +2,46 @@ import React, { useState } from "react";
 import Footer from "../components/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {URL} from '../url'
-
+import { URL } from "../url";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   // console.log("Username:", username);
   // console.log("Username:", email);
   // console.log("Username:", password);
 
   const handleRegister = async () => {
+    setLoading(true);
+    setError(null);
     try {
-      const res = await axios.post(URL + "/api/auth/register",{username,email,password});
-      console.log(res);
+      const res = await axios.post(URL + "/api/auth/register", {
+        username,
+        email,
+        password,
+      });
+      // console.log(res);
       setUsername(res.data.username);
       setEmail(res.data.email);
       setPassword(res.data.password);
-      setError(false);
-      console.log("Register success")
-      navigate("/login")
+      setLoading(false);
 
+      setError(false);
+      // console.log("Register success");
+      navigate("/login");
     } catch (e) {
       if (e.response && e.response.status === 409) {
         setError("Username already taken");
       } else {
         setError("Something went wrong");
       }
-      console.log(e);
+      setLoading(false);
+      // console.log(e);
     }
   };
   return (
@@ -69,13 +77,12 @@ const Register = () => {
           />
           <button
             onClick={handleRegister}
+            disabled={loading}
             className="w-full px-4 py-4 text-lg font-bold text-white bg-black rounded-lg hover:bg-gray-500 hover:text-black "
           >
-            Register
+            {loading ? "Registring...." : "Register"}
           </button>
-          {error && (
-            <h3 className="text-red-500 text-sm ">{error}</h3>
-          )}
+          {error && <h3 className="text-red-500 text-sm ">{error}</h3>}
           <div className="flex justify-center items-center space-x-3">
             <p>Already have an account?</p>
             <p className="text-gray-500 hover:text-black">
